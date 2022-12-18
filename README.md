@@ -5,10 +5,17 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
+### 2022.12.18(일)
+
+UI/UX 디자인(웹) - [Figma](https://www.figma.com/file/BnhdtxKWLcyHQnvSyb0sLu/DUC?node-id=0%3A1&t=ENgB2xgKb4bBUvAg-1)
+<br />
+[ 헤더 ]
+
 ### 2022.12.17(토)
 
 UI/UX 디자인(웹) - [Figma](https://www.figma.com/file/BnhdtxKWLcyHQnvSyb0sLu/DUC?node-id=0%3A1&t=ENgB2xgKb4bBUvAg-1)
 <br />
+[ 페이지 템플릿 ]
 
 ### 2022.12.16(금)
 
