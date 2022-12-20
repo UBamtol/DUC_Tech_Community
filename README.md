@@ -4,6 +4,12 @@
   <summary>
     <h2 style="display:inline">개발일지</h2>
   </summary>
+  
+### 2022.12.20(화)
+
+UI/UX 디자인(웹) - [Figma](https://www.figma.com/file/BnhdtxKWLcyHQnvSyb0sLu/DUC?node-id=0%3A1&t=ENgB2xgKb4bBUvAg-1)
+<br />
+[ 검색, 게시물 작성, 게시물 ]
 
 ### 2022.12.19(월)
 
