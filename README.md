@@ -5,6 +5,10 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
+### 2022.12.26(월)
+
+프로젝트 초기세팅(next.js, typescript)
+
 ### 2022.12.25(일)
 
 ERD(Entity Relationship Diagram) 설계 - [Lucid Chart](https://lucid.app/lucidchart/97870a37-d239-4f9e-a3ba-f8cf9c2058ab/edit?viewport_loc=-16%2C17%2C2893%2C1529%2C0_0&invitationId=inv_a581cca6-cb61-48b9-859b-d77cc36d3933)
