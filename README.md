@@ -5,6 +5,10 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
+### 2022.12.17(화)
+
+프로젝트 dependencies 설치
+
 ### 2022.12.26(월)
 
 프로젝트 초기세팅(next.js, typescript)
