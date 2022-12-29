@@ -5,6 +5,10 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
+### 2022.12.29(목)
+
+Post model 추가, next-auth provider작성
+
 ### 2022.12.28(수)
 
 prisma 스키마 next-auth 모델 작성, 도커 컴포즈 작성, yarn 설치
