@@ -10,6 +10,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  title     String
+  content   String
+  category  Category
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+}
+
+enum Category {
+  REACT
+  NEXT
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -44,6 +60,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  posts         Post[]
 }
 
 model VerificationToken {
