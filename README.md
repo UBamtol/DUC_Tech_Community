@@ -5,7 +5,11 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
-### 2022.12.17(화)
+### 2022.12.28(수)
+
+prisma 스키마 next-auth 모델 작성, 도커 컴포즈 작성, yarn 설치
+
+### 2022.12.27(화)
 
 프로젝트 dependencies 설치
 
