@@ -10,15 +10,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Comment {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  authorId  String
+  content   String
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
   title     String
   content   String
   category  Category
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
+  published Boolean   @default(false)
+  author    User      @relation(fields: [authorId], references: [id])
   authorId  String
+  comments  Comment[]
 }
 
 enum Category {
