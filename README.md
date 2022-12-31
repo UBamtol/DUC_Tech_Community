@@ -5,6 +5,10 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
+### 2022.12.31(토)
+
+apolloServer 작성, apolloClient 추가, test migration 추가
+
 ### 2022.12.30(금)
 
 Comment model 추가
