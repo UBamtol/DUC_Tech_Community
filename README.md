@@ -5,6 +5,10 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
+### 2023.01.01(일)
+
+graphql Post 타입, Query 타입 작성(nexus), context.ts 추가
+
 ### 2022.12.31(토)
 
 apolloServer 작성, apolloClient 추가, test migration 추가
