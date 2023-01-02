@@ -5,9 +5,13 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
+### 2023.01.02(월)
+
+User 타입 작성(nexus), Muation(Post) 타입 작성(nexus), nexus-typegen, graphql 스키마 작성
+
 ### 2023.01.01(일)
 
-graphql Post 타입, Query 타입 작성(nexus), context.ts 추가
+Post 타입 작성(nexus), Query 타입 작성(nexus), context.ts 추가
 
 ### 2022.12.31(토)
 
