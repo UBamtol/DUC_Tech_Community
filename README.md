@@ -5,6 +5,10 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
+### 2023.02.08(수)
+
+Query, Mutation 타입 분리
+
 ### 2023.01.02(월)
 
 User 타입 작성(nexus), Muation(Post) 타입 작성(nexus), nexus-typegen, graphql 스키마 작성
