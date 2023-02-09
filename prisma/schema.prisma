@@ -20,20 +20,19 @@ model Comment {
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  title     String
-  content   String
-  category  Category
-  published Boolean   @default(false)
-  author    User      @relation(fields: [authorId], references: [id])
-  authorId  String
-  comments  Comment[]
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  title       String
+  content     String
+  category    Category
+  author      User      @relation(fields: [authorEmail], references: [email])
+  authorEmail String
+  comments    Comment[]
 }
 
 enum Category {
-  REACT
-  NEXT
+  FRONTEND
+  BACKEND
 }
 
 model Account {
