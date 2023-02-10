@@ -11,12 +11,12 @@ datasource db {
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  post      Post     @relation(fields: [postId], references: [id])
-  postId    Int
-  authorId  String
-  content   String
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  post        Post     @relation(fields: [postId], references: [id])
+  postId      Int
+  authorEmail String
+  content     String
 }
 
 model Post {

@@ -1,5 +1,6 @@
 import { GraphQLDate } from 'graphql-scalars';
 import { asNexusMethod, nonNull, nullable, objectType, stringArg } from 'nexus';
+import { resolve } from 'path';
 
 export const GQLDate = asNexusMethod(GraphQLDate, 'date');
 
@@ -11,7 +12,6 @@ export const Post = objectType({
     t.string('title');
     t.string('content');
     t.string('category');
-    // t.boolean('published');
     t.field('author', {
       type: 'User',
       async resolve(_parent, _args, ctx) {
@@ -20,6 +20,15 @@ export const Post = objectType({
             where: { id: _parent.id },
           })
           .author();
+      },
+    });
+    t.list.field('comments', {
+      type: 'Comment',
+      async resolve(_parent, _args, ctx) {
+        return await ctx.prisma.comment.findMany({
+          where: { postId: _parent.id },
+        });
+        // .comments(); 이게 있고 없고 차이를 모르겠다
       },
     });
   },

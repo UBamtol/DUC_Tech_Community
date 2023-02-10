@@ -2,19 +2,32 @@
 ### Do not make changes to this file directly
 
 
+type Comment {
+  authorEmail: String
+  content: String
+  createAt: String
+  id: Int
+  post: Post
+  postId: Int
+}
+
 """
 A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar Date
 
 type Mutation {
+  createComment(authorEmail: String!, content: String!, postId: Int!): Comment
   createPost(authorEmail: String!, category: String!, content: String!, title: String!): Post
-  deletePost(postId: String!): Post
+  deleteComment(commentId: Int!): Comment
+  deletePost(postId: Int!): Post
+  updatePost(content: String!, postId: Int!): Post
 }
 
 type Post {
   author: User
   category: String
+  comments: [Comment]
   content: String
   createdAt: Date
   id: Int
@@ -22,11 +35,12 @@ type Post {
 }
 
 type Query {
-  filterPosts(searchString: String): [Post]
-  findAll(word: String!): [Post]
-  post(postId: String!): Post
+  comment(commentId: Int!): Comment
+  filterPosts(searchString: String!): [Post]
+  filterUser(name: String!): [User]
+  findAll(searchWord: String!): [Post]
+  post(postId: Int!): Post
   posts: [Post]
-  user(name: String!): [User]
   users: [User]
 }
 

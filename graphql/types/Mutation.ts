@@ -58,15 +58,66 @@ export const Mutation = objectType({
         });
       },
     });
-    t.nullable.field('deletePost', {
+
+    t.field('updatePost', {
       type: 'Post',
       args: {
-        postId: nonNull(stringArg()),
+        postId: nonNull(intArg()),
+        content: nonNull(stringArg()),
+      },
+      async resolve(_, { postId, content }, ctx) {
+        return await ctx.prisma.post.update({
+          where: {
+            id: postId,
+          },
+          data: {
+            content,
+          },
+        });
+      },
+    });
+
+    t.field('deletePost', {
+      type: 'Post',
+      args: {
+        postId: nonNull(intArg()),
       },
       async resolve(_, { postId }, ctx) {
         return await ctx.prisma.post.delete({
           where: {
             id: Number(postId),
+          },
+        });
+      },
+    });
+
+    t.field('createComment', {
+      type: 'Comment',
+      args: {
+        postId: nonNull(intArg()),
+        content: nonNull(stringArg()),
+        authorEmail: nonNull(stringArg()),
+      },
+      async resolve(_, { postId, content, authorEmail }, ctx) {
+        return await ctx.prisma.comment.create({
+          data: {
+            postId,
+            content,
+            authorEmail,
+          },
+        });
+      },
+    });
+
+    t.field('deleteComment', {
+      type: 'Comment',
+      args: {
+        commentId: nonNull(intArg()),
+      },
+      async resolve(_, { commentId }, ctx) {
+        return await ctx.prisma.comment.delete({
+          where: {
+            id: Number(commentId),
           },
         });
       },

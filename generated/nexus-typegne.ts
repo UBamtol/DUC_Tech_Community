@@ -8,17 +8,17 @@ import type { core, connectionPluginCore } from "nexus"
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
     /**
-     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     * A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
-    date<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
+    date<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "Date";
   }
 }
 declare global {
   interface NexusGenCustomOutputMethods<TypeName extends string> {
     /**
-     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+     * A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
      */
-    date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
+    date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Date";
     /**
      * Adds a Relay-style connection to the type, with numerous options for configuration
      *
@@ -48,16 +48,23 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
-  DateTime: any
+  Date: any
 }
 
 export interface NexusGenObjects {
+  Comment: { // root type
+    authorEmail?: string | null; // String
+    content?: string | null; // String
+    createAt?: string | null; // String
+    id?: number | null; // Int
+    postId?: number | null; // Int
+  }
   Mutation: {};
   Post: { // root type
+    category?: string | null; // String
     content?: string | null; // String
-    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    createdAt?: NexusGenScalars['Date'] | null; // Date
     id?: number | null; // Int
-    published?: boolean | null; // Boolean
     title?: string | null; // String
   }
   Query: {};
@@ -79,22 +86,37 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Comment: { // field return type
+    authorEmail: string | null; // String
+    content: string | null; // String
+    createAt: string | null; // String
+    id: number | null; // Int
+    post: NexusGenRootTypes['Post'] | null; // Post
+    postId: number | null; // Int
+  }
   Mutation: { // field return type
+    createComment: NexusGenRootTypes['Comment'] | null; // Comment
     createPost: NexusGenRootTypes['Post'] | null; // Post
+    deleteComment: NexusGenRootTypes['Comment'] | null; // Comment
     deletePost: NexusGenRootTypes['Post'] | null; // Post
-    signupUser: NexusGenRootTypes['User'] | null; // User
+    updatePost: NexusGenRootTypes['Post'] | null; // Post
   }
   Post: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
+    category: string | null; // String
+    comments: Array<NexusGenRootTypes['Comment'] | null> | null; // [Comment]
     content: string | null; // String
-    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    createdAt: NexusGenScalars['Date'] | null; // Date
     id: number | null; // Int
-    published: boolean | null; // Boolean
     title: string | null; // String
   }
   Query: { // field return type
+    comment: NexusGenRootTypes['Comment'] | null; // Comment
     filterPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    filterUser: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    findAll: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     post: NexusGenRootTypes['Post'] | null; // Post
+    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
   User: { // field return type
@@ -106,22 +128,37 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Comment: { // field return type name
+    authorEmail: 'String'
+    content: 'String'
+    createAt: 'String'
+    id: 'Int'
+    post: 'Post'
+    postId: 'Int'
+  }
   Mutation: { // field return type name
+    createComment: 'Comment'
     createPost: 'Post'
+    deleteComment: 'Comment'
     deletePost: 'Post'
-    signupUser: 'User'
+    updatePost: 'Post'
   }
   Post: { // field return type name
     author: 'User'
+    category: 'String'
+    comments: 'Comment'
     content: 'String'
-    createdAt: 'DateTime'
+    createdAt: 'Date'
     id: 'Int'
-    published: 'Boolean'
     title: 'String'
   }
   Query: { // field return type name
+    comment: 'Comment'
     filterPosts: 'Post'
+    filterUser: 'User'
+    findAll: 'Post'
     post: 'Post'
+    posts: 'Post'
     users: 'User'
   }
   User: { // field return type name
@@ -134,25 +171,43 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createComment: { // args
+      authorEmail: string; // String!
+      content: string; // String!
+      postId: number; // Int!
+    }
     createPost: { // args
       authorEmail: string; // String!
+      category: string; // String!
       content: string; // String!
       title: string; // String!
     }
-    deletePost: { // args
-      postId?: string | null; // String
+    deleteComment: { // args
+      commentId: number; // Int!
     }
-    signupUser: { // args
-      email: string; // String!
-      name?: string | null; // String
+    deletePost: { // args
+      postId: number; // Int!
+    }
+    updatePost: { // args
+      content: string; // String!
+      postId: number; // Int!
     }
   }
   Query: {
+    comment: { // args
+      commentId: number; // Int!
+    }
     filterPosts: { // args
-      searchString?: string | null; // String
+      searchString: string; // String!
+    }
+    filterUser: { // args
+      name: string; // String!
+    }
+    findAll: { // args
+      searchWord: string; // String!
     }
     post: { // args
-      postId: string; // String!
+      postId: number; // Int!
     }
   }
 }

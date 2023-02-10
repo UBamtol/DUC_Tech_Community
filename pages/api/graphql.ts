@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { ApolloServer } from 'apollo-server-micro';
-import type { NextApiRequest, NextApiResponse, PageConfig } from 'next';
+import { NextApiRequest, NextApiResponse, PageConfig } from 'next';
 import { createContext } from '../../graphql/context';
 import { schema } from '../../graphql/schema';
 
