@@ -5,7 +5,11 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
-### 2023.20.09(목)
+### 2023.02.10(금)
+
+Comment type(create, delete)추가, Post type(update) 추가, schema.prisma 수정
+
+### 2023.02.09(목)
 
 Query(findAll, posts, user), Mutation(createPost, deletePost), Post 타입 수정
 schema.prisma 수정
