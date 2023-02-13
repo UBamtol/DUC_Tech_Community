@@ -4,6 +4,10 @@
   <summary>
     <h2 style="display:inline">개발일지</h2>
   </summary>
+  
+### 2023.02.13(월)
+
+tailwindCSS, next-auth 설치
 
 ### 2023.02.10(금)
 
