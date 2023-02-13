@@ -13,4 +13,11 @@ export default NextAuth({
     }),
   ],
   secret: process.env.SECRET,
+  session: {
+    strategy: 'database',
+  },
+  theme: {
+    colorScheme: 'auto',
+  },
+  debug: false,
 });
