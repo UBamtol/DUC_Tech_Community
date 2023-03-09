@@ -4,7 +4,11 @@
   <summary>
     <h2 style="display:inline">개발일지</h2>
   </summary>
-  
+
+### 2023.03.09(목)
+
+baseUrl추가, header,navbar,SearchBar 추가, \_document.tsx 추가, 대림대 로고 추가
+
 ### 2023.02.13(월)
 
 tailwindCSS, next-auth 설치
