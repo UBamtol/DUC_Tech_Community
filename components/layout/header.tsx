@@ -1,5 +1,6 @@
 import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Header = () => {
@@ -7,7 +8,7 @@ const Header = () => {
 
   return (
     <>
-      <div className='w-full h-[50px] flex items-center shadow-sm'>
+      <Link className='w-full h-[50px] flex items-center shadow-sm' href='/'>
         <Image
           className='ml-[20px] mr-[5px]'
           src='/asset/images/daelimLogo.svg'
@@ -19,7 +20,7 @@ const Header = () => {
         {/* <div className='border border-black' onClick={() => signIn('github')}>
           로그인
         </div> */}
-      </div>
+      </Link>
     </>
   );
 };

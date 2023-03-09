@@ -11,7 +11,7 @@ const SearchBar = () => {
       <input
         type='button'
         value='검색'
-        className='w-[60px] h-full bg-[#A7A9AC] text-white text-sm flex justify-center items-center rounded-r-md font-semibold hover:cursor-pointer hover:bg-[#b1b1b1]'
+        className='w-[60px] h-full bg-[#A7A9AC] text-white text-sm flex justify-center items-center rounded-r-md font-semibold hover:cursor-pointer hover:bg-[#b1b1b1] active:bg-[#8c8c8c]'
       />
     </div>
   );
