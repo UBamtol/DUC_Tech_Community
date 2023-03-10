@@ -1,8 +1,7 @@
 import Announcement from 'components/common/Announcement';
+import LeftCategoryBox from 'components/LeftCategoryBox';
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (
@@ -14,6 +13,14 @@ const Home: NextPage = () => {
         height={250}
       />
       <Announcement />
+      <div className='flex justify-between'>
+        <LeftCategoryBox />
+        {/* 글 목록 박스 */}
+        <div className='w-full flex justify-between'>
+          <div className='border-t-2 border-black w-[50%] mr-5'></div>
+          <div className='border-t-2 border-black w-[50%]'></div>
+        </div>
+      </div>
     </>
   );
 };
