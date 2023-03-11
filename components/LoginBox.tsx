@@ -33,13 +33,13 @@ const LoginBox = () => {
           <div className='text-xs text-[#808080]'>{session.user?.email}</div>
         </div>
         <div className='flex text-xs w-full h-[33px] items-center border-t border-[#808080] divide-x divide-[#808080]'>
-          <div className='flex justify-center items-center w-1/3 h-full '>
+          <div className='flex justify-center items-center w-1/3 h-full hover:cursor-pointer hover:font-semibold'>
             게시물
           </div>
-          <div className='flex justify-center items-center w-1/3 h-full '>
+          <div className='flex justify-center items-center w-1/3 h-full hover:cursor-pointer hover:font-semibold'>
             댓글
           </div>
-          <div className='flex justify-center items-center w-1/3 h-full '>
+          <div className='flex justify-center items-center w-1/3 h-full hover:cursor-pointer hover:font-semibold'>
             공지사항
           </div>
         </div>
