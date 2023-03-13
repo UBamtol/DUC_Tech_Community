@@ -8,7 +8,7 @@ type Props = {
 const Layout = ({ children }: Props) => {
   return (
     <div className='flex justify-center  bg-slate-100'>
-      <div className='w-full max-w-[1080px] h-screen bg-white'>
+      <div className='w-full max-w-[1080px] h-full bg-white overflow-auto'>
         <Header />
         <Navbar />
         {children}
