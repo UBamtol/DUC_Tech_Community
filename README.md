@@ -5,6 +5,10 @@
     <h2 style="display:inline">개발일지</h2>
   </summary>
 
+### 2023.03.13(월)
+
+PostingCategoryBox.tsx 수정
+
 ### 2023.03.11(토)
 
 LoginBox, LeftCategoryBox 수정, PostingCategoryBox.tsx 추가
