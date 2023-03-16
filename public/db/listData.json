@@ -1,0 +1,5 @@
+{
+  "frontEnd": ["React.js", "Next.js", "Javascript", "HTML", "CSS"],
+  "backEnd": ["java", "python", "Javascript", "HTML", "CSS"],
+  "freeBoard": ["비밀게시판", "동아리 홍보"]
+}
