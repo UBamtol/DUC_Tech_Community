@@ -14,17 +14,20 @@ const Home: NextPage = () => {
         height={250}
       />
       <Announcement />
-      <div className='flex w-full justify-between'>
+      <div className='flex w-full justify-between space-x-5'>
         <LeftCategoryBox />
         {/* 글 목록 박스 */}
-        <div className='w-full h-screen flex flex-col justify-between overflow-hidden'>
+        <div className='w-full h-full flex flex-col space-y-5 overflow-auto'>
           <div className='flex space-x-5'>
-            <div className='border-t-2 border-black w-[420px]'>
+            <div className='border-t-2 border-black w-1/2 overflow-auto'>
               <PostingCategoryBox />
             </div>
-            <div className='border-t-2 border-black w-[420px]'>
+            <div className='border-t-2 border-black w-1/2 overflow-auto'>
               <PostingCategoryBox />
             </div>
+          </div>
+          <div className='border-t-2 border-black w-full'>
+            <PostingCategoryBox />
           </div>
           <div className='border-t-2 border-black w-full'>
             <PostingCategoryBox />

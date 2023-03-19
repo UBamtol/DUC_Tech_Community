@@ -3,7 +3,7 @@ import React from 'react';
 const PostingCategoryBox = () => {
   return (
     <>
-      <div className='flex flex-col w-full h-[56px]'>
+      <div className='flex flex-col w-full h-full'>
         <div className='w-full h-full border-b-2 border-[$808080] flex items-center p-5 font-semibold font-lg'>
           Top 10
         </div>
