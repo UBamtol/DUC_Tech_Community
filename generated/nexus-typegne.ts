@@ -65,6 +65,7 @@ export interface NexusGenObjects {
     content?: string | null; // String
     createdAt?: NexusGenScalars['Date'] | null; // Date
     id?: number | null; // Int
+    subCategory?: string | null; // String
     title?: string | null; // String
   }
   Query: {};
@@ -108,6 +109,7 @@ export interface NexusGenFieldTypes {
     content: string | null; // String
     createdAt: NexusGenScalars['Date'] | null; // Date
     id: number | null; // Int
+    subCategory: string | null; // String
     title: string | null; // String
   }
   Query: { // field return type
@@ -150,6 +152,7 @@ export interface NexusGenFieldTypeNames {
     content: 'String'
     createdAt: 'Date'
     id: 'Int'
+    subCategory: 'String'
     title: 'String'
   }
   Query: { // field return type name
@@ -180,6 +183,7 @@ export interface NexusGenArgTypes {
       authorEmail: string; // String!
       category: string; // String!
       content: string; // String!
+      subCategory: string; // String!
       title: string; // String!
     }
     deleteComment: { // args

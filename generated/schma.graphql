@@ -18,7 +18,7 @@ scalar Date
 
 type Mutation {
   createComment(authorEmail: String!, content: String!, postId: Int!): Comment
-  createPost(authorEmail: String!, category: String!, content: String!, title: String!): Post
+  createPost(authorEmail: String!, category: String!, content: String!, subCategory: String!, title: String!): Post
   deleteComment(commentId: Int!): Comment
   deletePost(postId: Int!): Post
   updatePost(content: String!, postId: Int!): Post
@@ -31,6 +31,7 @@ type Post {
   content: String
   createdAt: Date
   id: Int
+  subCategory: String
   title: String
 }
 

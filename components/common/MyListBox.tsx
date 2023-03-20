@@ -3,24 +3,26 @@ import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Fragment, useEffect, useState } from 'react';
 
 interface ListType {
-  isChecked: string;
-  checkedList: string[];
+  categoryList: string[];
+  subCategory: string;
+  setSubCategory: React.Dispatch<React.SetStateAction<string>>;
 }
-export function MyListBox({ isChecked, checkedList }: ListType) {
-  const [selected, setSelected] = useState(checkedList[0]);
-  // console.log(isChecked);
-  // console.log(checkedList);
+export function MyListBox({
+  categoryList,
+  subCategory,
+  setSubCategory,
+}: ListType) {
+  // const [selected, setSelected] = useState(checkedList[0]);
   useEffect(() => {
-    setSelected(checkedList[0]);
-  }, [checkedList]);
-  console.log(selected);
+    setSubCategory(categoryList[0]);
+  }, [categoryList]);
 
   return (
     <div className='mx-5 w-52'>
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={subCategory} onChange={setSubCategory}>
         <div className='relative'>
           <Listbox.Button className='border relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm'>
-            <span className='block truncate'>{selected}</span>
+            <span className='block truncate'>{subCategory}</span>
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
               <ChevronDownIcon
                 className='h-5 w-5 text-gray-400'
@@ -35,7 +37,7 @@ export function MyListBox({ isChecked, checkedList }: ListType) {
             leaveTo='opacity-0'
           >
             <Listbox.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
-              {checkedList.map((v, i) => (
+              {categoryList.map((v, i) => (
                 <Listbox.Option
                   key={i}
                   className={({ active }) =>

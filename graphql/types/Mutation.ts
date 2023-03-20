@@ -41,14 +41,20 @@ export const Mutation = objectType({
       type: 'Post',
       args: {
         category: nonNull(stringArg()),
+        subCategory: nonNull(stringArg()),
         title: nonNull(stringArg()),
         content: nonNull(stringArg()),
         authorEmail: nonNull(stringArg()),
       },
-      async resolve(_, { category, title, content, authorEmail }, ctx) {
+      async resolve(
+        _,
+        { category, subCategory, title, content, authorEmail },
+        ctx
+      ) {
         return await ctx.prisma.post.create({
           data: {
             category,
+            subCategory,
             title,
             content,
             author: {

@@ -12,6 +12,7 @@ export const Post = objectType({
     t.string('title');
     t.string('content');
     t.string('category');
+    t.string('subCategory');
     t.field('author', {
       type: 'User',
       async resolve(_parent, _args, ctx) {
