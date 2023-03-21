@@ -1,12 +1,10 @@
 import LeftCategoryBox from 'components/LeftCategoryBox';
 import React, { useState, Fragment, useEffect } from 'react';
-import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import listData from '../public/db/listData.json';
 import { MyListBox } from 'components/common/MyListBox';
 import { gql, useMutation } from '@apollo/client';
 import { useSession } from 'next-auth/react';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 const CreatePostMutation = gql`
   mutation CreatePost(
@@ -66,13 +64,13 @@ const createPostPage = () => {
   loading && '로딩중';
   error && '에러발생';
   return (
-    <div className='flex mt-2 space-x-5'>
+    <div className='flex pt-2 space-x-5'>
       <LeftCategoryBox />
       <div className='border-t-2 border-black w-full'>
         <div className='w-full h-[56px] border-b-2 border-[#808080] flex items-center p-5 font-semibold text-base'>
           글쓰기
         </div>
-        <form>
+        <form onSubmit={onSubmit}>
           <fieldset className='flex p-5 items-center'>
             <div className='mr-5 font-semibold text-sm'>카테고리</div>
             <div className='flex space-x-2 text-sm'>
