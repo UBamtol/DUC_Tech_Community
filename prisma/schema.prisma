@@ -26,6 +26,7 @@ model Post {
   content     String
   category    Category
   subCategory String
+  views       Int       @default(0)
   author      User      @relation(fields: [authorEmail], references: [email])
   authorEmail String
   comments    Comment[]

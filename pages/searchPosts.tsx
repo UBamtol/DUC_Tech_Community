@@ -1,23 +1,15 @@
 import LeftCategoryBox from 'components/LeftCategoryBox';
-import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 
-const postCategory = () => {
-  const router = useRouter();
-  const { mainCategory, subCategory } = router.query;
-
+const searchPosts = () => {
+  const [searchWord, setSearchWord] = useState('검색단어');
   return (
-    <div className='flex mt-2 space-x-5'>
+    <div className='flex pt-2 space-x-5'>
       <LeftCategoryBox />
       <div className='w-full'>
         <div className='w-full h-[56px] border-y-2 border-black flex items-center p-5 font-semibold text-lg capitalize'>
-          {mainCategory === 'category'
-            ? '전체 글 보기'
-            : subCategory === 'allPosts'
-            ? mainCategory === 'free-board'
-              ? '자유게시판'
-              : mainCategory
-            : subCategory}
+          "<div className='text-[#4DB5D9] font-bold'>{searchWord}</div>
+          "에 대한 검색 결과
         </div>
         <div className='border-b border-[#808080] flex px-3 py-[10px] justify-between'>
           <div className='flex justify-center items-center px-2 w-[60px]'>
@@ -65,4 +57,4 @@ const postCategory = () => {
   );
 };
 
-export default postCategory;
+export default searchPosts;

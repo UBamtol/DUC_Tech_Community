@@ -1,8 +1,8 @@
-import { GraphQLDate } from 'graphql-scalars';
+import { GraphQLDateTime } from 'graphql-scalars';
 import { asNexusMethod, nonNull, nullable, objectType, stringArg } from 'nexus';
 import { resolve } from 'path';
 
-export const GQLDate = asNexusMethod(GraphQLDate, 'date');
+export const GQLDate = asNexusMethod(GraphQLDateTime, 'date');
 
 export const Post = objectType({
   name: 'Post',
@@ -13,6 +13,7 @@ export const Post = objectType({
     t.string('content');
     t.string('category');
     t.string('subCategory');
+    t.int('views');
     t.field('author', {
       type: 'User',
       async resolve(_parent, _args, ctx) {
