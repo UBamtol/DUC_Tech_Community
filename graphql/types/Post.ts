@@ -14,6 +14,7 @@ export const Post = objectType({
     t.string('category');
     t.string('subCategory');
     t.int('views');
+    // t.int('likeCount');
     t.field('author', {
       type: 'User',
       async resolve(_parent, _args, ctx) {
@@ -31,6 +32,14 @@ export const Post = objectType({
           where: { postId: _parent.id },
         });
         // .comments(); 이게 있고 없고 차이를 모르겠다
+      },
+    });
+    t.list.field('likes', {
+      type: 'Like',
+      async resolve(_parent, _args, ctx) {
+        return await ctx.prisma.like.findMany({
+          where: { postId: _parent.id },
+        });
       },
     });
   },

@@ -128,5 +128,40 @@ export const Mutation = objectType({
         });
       },
     });
+
+    t.field('incrementViews', {
+      type: 'Post',
+      args: {
+        postId: nonNull(intArg()),
+      },
+      async resolve(_, { postId }, ctx) {
+        return await ctx.prisma.post.update({
+          where: {
+            id: postId,
+          },
+          data: {
+            views: {
+              increment: 1,
+            },
+          },
+        });
+      },
+    });
+
+    t.field('createLike', {
+      type: 'Like',
+      args: {
+        postId: nonNull(intArg()),
+        authorEmail: nonNull(stringArg()),
+      },
+      async resolve(_, { postId, authorEmail }, ctx) {
+        return await ctx.prisma.like.create({
+          data: {
+            postId,
+            authorEmail,
+          },
+        });
+      },
+    });
   },
 });

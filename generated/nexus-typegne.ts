@@ -59,6 +59,11 @@ export interface NexusGenObjects {
     id?: number | null; // Int
     postId?: number | null; // Int
   }
+  Like: { // root type
+    authorEmail?: string | null; // String
+    id?: number | null; // Int
+    postId?: number | null; // Int
+  }
   Mutation: {};
   Post: { // root type
     category?: string | null; // String
@@ -96,11 +101,20 @@ export interface NexusGenFieldTypes {
     post: NexusGenRootTypes['Post'] | null; // Post
     postId: number | null; // Int
   }
+  Like: { // field return type
+    author: NexusGenRootTypes['User'] | null; // User
+    authorEmail: string | null; // String
+    id: number | null; // Int
+    post: NexusGenRootTypes['Post'] | null; // Post
+    postId: number | null; // Int
+  }
   Mutation: { // field return type
     createComment: NexusGenRootTypes['Comment'] | null; // Comment
+    createLike: NexusGenRootTypes['Like'] | null; // Like
     createPost: NexusGenRootTypes['Post'] | null; // Post
     deleteComment: NexusGenRootTypes['Comment'] | null; // Comment
     deletePost: NexusGenRootTypes['Post'] | null; // Post
+    incrementViews: NexusGenRootTypes['Post'] | null; // Post
     updatePost: NexusGenRootTypes['Post'] | null; // Post
   }
   Post: { // field return type
@@ -110,6 +124,7 @@ export interface NexusGenFieldTypes {
     content: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     id: number | null; // Int
+    likes: Array<NexusGenRootTypes['Like'] | null> | null; // [Like]
     subCategory: string | null; // String
     title: string | null; // String
     views: number | null; // Int
@@ -140,11 +155,20 @@ export interface NexusGenFieldTypeNames {
     post: 'Post'
     postId: 'Int'
   }
+  Like: { // field return type name
+    author: 'User'
+    authorEmail: 'String'
+    id: 'Int'
+    post: 'Post'
+    postId: 'Int'
+  }
   Mutation: { // field return type name
     createComment: 'Comment'
+    createLike: 'Like'
     createPost: 'Post'
     deleteComment: 'Comment'
     deletePost: 'Post'
+    incrementViews: 'Post'
     updatePost: 'Post'
   }
   Post: { // field return type name
@@ -154,6 +178,7 @@ export interface NexusGenFieldTypeNames {
     content: 'String'
     createdAt: 'DateTime'
     id: 'Int'
+    likes: 'Like'
     subCategory: 'String'
     title: 'String'
     views: 'Int'
@@ -182,6 +207,10 @@ export interface NexusGenArgTypes {
       content: string; // String!
       postId: number; // Int!
     }
+    createLike: { // args
+      authorEmail: string; // String!
+      postId: number; // Int!
+    }
     createPost: { // args
       authorEmail: string; // String!
       category: string; // String!
@@ -193,6 +222,9 @@ export interface NexusGenArgTypes {
       commentId: number; // Int!
     }
     deletePost: { // args
+      postId: number; // Int!
+    }
+    incrementViews: { // args
       postId: number; // Int!
     }
     updatePost: { // args
