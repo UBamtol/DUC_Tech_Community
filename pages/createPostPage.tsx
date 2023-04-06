@@ -58,11 +58,6 @@ const createPostPage = () => {
     }).then(() => router.push('/'));
   };
 
-  // useEffect(() => {
-  //   session ? null : router.push('/');
-  // }, [router, session]);
-  loading && '로딩중';
-  error && '에러발생';
   return (
     <div className='flex pt-2 space-x-5'>
       <LeftCategoryBox />

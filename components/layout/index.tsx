@@ -9,6 +9,7 @@ import Navbar from './navbar';
 type Props = {
   children: ReactNode;
 };
+
 const Layout = ({ children }: Props) => {
   const router = useRouter();
   return (

@@ -29,6 +29,7 @@ type Mutation {
   createLike(authorEmail: String!, postId: Int!): Like
   createPost(authorEmail: String!, category: String!, content: String!, subCategory: String!, title: String!): Post
   deleteComment(commentId: Int!): Comment
+  deleteLike(authorEmail: String!, postId: Int!): Like
   deletePost(postId: Int!): Post
   incrementViews(postId: Int!): Post
   updatePost(content: String!, postId: Int!): Post

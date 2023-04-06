@@ -38,7 +38,6 @@ export const Query = objectType({
       },
     });
 
-    // 필요한가?
     t.field('post', {
       type: 'Post',
       args: {

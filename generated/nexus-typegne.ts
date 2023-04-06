@@ -113,6 +113,7 @@ export interface NexusGenFieldTypes {
     createLike: NexusGenRootTypes['Like'] | null; // Like
     createPost: NexusGenRootTypes['Post'] | null; // Post
     deleteComment: NexusGenRootTypes['Comment'] | null; // Comment
+    deleteLike: NexusGenRootTypes['Like'] | null; // Like
     deletePost: NexusGenRootTypes['Post'] | null; // Post
     incrementViews: NexusGenRootTypes['Post'] | null; // Post
     updatePost: NexusGenRootTypes['Post'] | null; // Post
@@ -167,6 +168,7 @@ export interface NexusGenFieldTypeNames {
     createLike: 'Like'
     createPost: 'Post'
     deleteComment: 'Comment'
+    deleteLike: 'Like'
     deletePost: 'Post'
     incrementViews: 'Post'
     updatePost: 'Post'
@@ -220,6 +222,10 @@ export interface NexusGenArgTypes {
     }
     deleteComment: { // args
       commentId: number; // Int!
+    }
+    deleteLike: { // args
+      authorEmail: string; // String!
+      postId: number; // Int!
     }
     deletePost: { // args
       postId: number; // Int!

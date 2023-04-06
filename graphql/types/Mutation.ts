@@ -163,5 +163,28 @@ export const Mutation = objectType({
         });
       },
     });
+
+    t.field('deleteLike', {
+      type: 'Like',
+      args: {
+        postId: nonNull(intArg()),
+        authorEmail: nonNull(stringArg()),
+      },
+      async resolve(_, { postId, authorEmail }, ctx) {
+        return await ctx.prisma.like.deleteMany({
+          where: {
+            authorEmail,
+            postId,
+          },
+
+          // data: {
+          //   postId,
+          // },
+          // data: {
+          //   delete: true,
+          // },
+        });
+      },
+    });
   },
 });

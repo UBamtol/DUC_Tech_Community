@@ -22,6 +22,7 @@ const PostQuery = gql`
       views
       likes {
         id
+        authorEmail
       }
       author {
         id
@@ -44,8 +45,17 @@ const IncrementViewsMutation = gql`
   }
 `;
 const CreateLikeMutation = gql`
-  mutation CreateLike($postId: Int!) {
+  mutation CreateLike($postId: Int!, $authorEmail: String!) {
     createLike(postId: $postId, authorEmail: $authorEmail) {
+      id
+      authorEmail
+      postId
+    }
+  }
+`;
+const DeleteLikeMutation = gql`
+  mutation DeleteLike($postId: Int!, $authorEmail: String!) {
+    deleteLike(postId: $postId, authorEmail: $authorEmail) {
       id
       authorEmail
       postId
@@ -56,7 +66,6 @@ const CreateLikeMutation = gql`
 const postId = () => {
   const router = useRouter();
   const postId = Number(router.query.postId);
-  // const [postId, setPostId] = useState(routerrouter.query.postId);
   const [isChecked, setIsChecked] = useState(false);
   const { data: session, status } = useSession();
   const { error, data } = useQuery(PostQuery, {
@@ -64,11 +73,48 @@ const postId = () => {
     skip: isNaN(postId),
   });
   const [incrementViews, { loading }] = useMutation(IncrementViewsMutation);
-  const [createLike] = useMutation(CreateLikeMutation);
+  const [createLike] = useMutation(CreateLikeMutation, {
+    refetchQueries: ['Post'],
+  });
+  const [deleteLike] = useMutation(DeleteLikeMutation, {
+    refetchQueries: ['Post'],
+  });
 
   useEffect(() => {
-    !isNaN(postId) && incrementViews({ variables: { postId } });
+    if (!isNaN(postId)) {
+      incrementViews({ variables: { postId } });
+    }
   }, [postId]);
+  useEffect(() => {
+    data !== undefined && data.post.likes.length !== 0
+      ? data.post.likes.map((e: any) => {
+          if (e.authorEmail === session?.user?.email) {
+            setIsChecked(true);
+          } else {
+            setIsChecked(false);
+          }
+        })
+      : setIsChecked(false);
+  }, [data, isChecked]);
+  const clickLike = async () => {
+    await createLike({
+      variables: {
+        postId,
+        authorEmail: session?.user?.email,
+      },
+    });
+    setIsChecked(true);
+  };
+  const cancelLike = async () => {
+    await deleteLike({
+      variables: {
+        postId,
+        authorEmail: session?.user?.email,
+      },
+    });
+    setIsChecked(false);
+  };
+
   return (
     <>
       {!loading && status === 'authenticated' && data !== undefined && (
@@ -119,7 +165,9 @@ const postId = () => {
                       className={`text-[#D45151] w-4 h-4 mr-1 ${
                         isChecked ? 'fill-[#D45151]' : null
                       } hover:cursor-pointer`}
-                      onClick={() => setIsChecked(!isChecked)}
+                      onClick={() => {
+                        isChecked ? cancelLike() : clickLike();
+                      }}
                     />
                     좋아요 {data.post.likes.length}
                   </div>
