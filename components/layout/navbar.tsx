@@ -2,7 +2,7 @@ import SearchBar from 'components/common/SearchBar';
 import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Navbar = () => {
   return (

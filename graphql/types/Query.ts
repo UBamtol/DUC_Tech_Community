@@ -62,13 +62,24 @@ export const Query = objectType({
       args: {
         searchString: nonNull(stringArg()),
       },
-      async resolve(_, searchString, ctx) {
+      async resolve(_, _args, ctx) {
         return await ctx.prisma.post.findMany({
           where: {
             OR: [
-              { title: { contains: searchString }, mode: 'insensitive' },
-              { content: { contains: searchString }, mode: 'insensitive' },
+              {
+                title: {
+                  contains: String(_args.searchString),
+                  mode: 'insensitive',
+                },
+              },
+              {
+                content: {
+                  contains: String(_args.searchString),
+                  mode: 'insensitive',
+                },
+              },
             ],
+            // { content: { contains: searchString }, mode: 'insensitive' },
           },
         });
       },
