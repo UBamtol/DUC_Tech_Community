@@ -22,7 +22,7 @@ const SearchBar = () => {
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             if (searchWord !== '') {
-              router.replace(`/searchPosts/${searchWord}`);
+              router.push(`/searchPosts/${searchWord}`);
             } else {
               alert('검색어를 입력해주세요.');
             }
@@ -35,7 +35,7 @@ const SearchBar = () => {
         className='min-w-[50px] h-full bg-[#A7A9AC] text-white text-sm flex justify-center items-center rounded-r-md font-semibold hover:cursor-pointer hover:bg-[#b1b1b1] active:bg-[#8c8c8c]'
         onClick={() => {
           if (searchWord !== '') {
-            router.replace(`/searchPosts/${searchWord}`);
+            router.push(`/searchPosts/${searchWord}`);
           } else {
             alert('검색어를 입력해주세요.');
           }

@@ -92,8 +92,9 @@ const searchString = () => {
               data.filterPosts.map((v: any, i: number) => {
                 return (
                   <div
-                    className='flex px-3 py-[10px] justify-between border-b border-[#808080]'
+                    className='flex px-3 py-[10px] justify-between border-b border-[#808080] hover:cursor-pointer'
                     key={i}
+                    onClick={() => router.push(`/posts/${v.id}`)}
                   >
                     <div className='flex justify-center items-center px-2 w-[60px] text-sm text-[#333333]'>
                       {v.id}

@@ -84,6 +84,22 @@ export const Query = objectType({
         });
       },
     });
+    t.list.field('filterCategory', {
+      type: 'Post',
+      args: {
+        searchCategory: nonNull(stringArg()),
+      },
+      async resolve(_, _args, ctx) {
+        return await ctx.prisma.post.findMany({
+          where: {
+            subCategory: {
+              contains: String(_args.searchCategory),
+              mode: 'insensitive',
+            },
+          },
+        });
+      },
+    });
 
     t.list.field('users', {
       type: 'User',
@@ -115,6 +131,17 @@ export const Query = objectType({
         return await ctx.prisma.comment.findUnique({
           where: {
             id: Number(_args.commentId),
+          },
+        });
+      },
+    });
+
+    t.field('notice', {
+      type: 'Notice',
+      async resolve(_, _args, ctx) {
+        return await ctx.prisma.notice.findFirst({
+          orderBy: {
+            content: 'asc',
           },
         });
       },

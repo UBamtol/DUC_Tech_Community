@@ -35,6 +35,12 @@ type Mutation {
   updatePost(content: String!, postId: Int!): Post
 }
 
+type Notice {
+  content: String
+  createdAt: String
+  id: Int
+}
+
 type Post {
   author: User
   category: String
@@ -50,9 +56,11 @@ type Post {
 
 type Query {
   comment(commentId: Int!): Comment
+  filterCategory(searchCategory: String!): [Post]
   filterPosts(searchString: String!): [Post]
   filterUser(name: String!): [User]
   findAll(searchWord: String!): [Post]
+  notice: Notice
   post(postId: Int!): Post
   posts: [Post]
   users: [User]

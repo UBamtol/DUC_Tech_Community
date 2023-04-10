@@ -24,6 +24,7 @@ const Layout = ({ children }: Props) => {
               alt='메인페이지 이미지'
               width={1080}
               height={250}
+              priority
             />
             <Announcement />
           </>

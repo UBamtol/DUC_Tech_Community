@@ -1,5 +1,13 @@
 {
-  "frontEnd": ["React.js", "Next.js", "Javascript", "HTML", "CSS"],
-  "backEnd": ["java", "python", "Javascript", "HTML", "CSS"],
-  "freeBoard": ["비밀 게시판", "동아리 홍보"]
+  "frontEnd": [
+    "HTML",
+    "CSS",
+    "Javascript",
+    "React.js",
+    "Vue.js",
+    "Angular.js",
+    "Next.js"
+  ],
+  "backEnd": ["Java", "PHP", "Ruby", "Python", "C", "C++", "C#"],
+  "freeBoard": ["자유 게시판", "동아리 홍보", "건의사항"]
 }

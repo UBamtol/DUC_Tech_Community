@@ -49,11 +49,19 @@ const LoginBox = () => {
     return (
       <>
         <div
-          className='flex justify-center items-center w-[160px] h-8 bg-[#5A5A5A] text-white font-semibold mx-5 my-[10px] hover:cursor-pointer hover:bg-[#7c7c7c] active:bg-[#6a6a6a]'
+          className='flex justify-center items-center rounded-sm w-[160px] h-8 bg-[#5A5A5A] text-white font-semibold mx-5 my-[10px] hover:cursor-pointer hover:bg-[#7c7c7c] active:bg-[#6a6a6a]'
           onClick={() => {
             signIn('github');
           }}
         >
+          <Image
+            className='mr-2'
+            src='./asset/images/github_logo_white.svg'
+            alt='github_logo_white'
+            width={20}
+            height={20}
+            priority
+          />
           GitHub 로그인
         </div>
       </>

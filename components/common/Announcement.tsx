@@ -1,6 +1,18 @@
+import { useQuery } from '@apollo/client';
+import { gql } from 'apollo-server-micro';
 import React from 'react';
 
+const NoticeQuery = gql`
+  query Notice {
+    notice {
+      content
+    }
+  }
+`;
+
 const Announcement = () => {
+  const { loading, error, data } = useQuery(NoticeQuery);
+
   return (
     <div className='p-2'>
       <div className='w-full h-[50px] bg-[#F3F3F3] rounded-lg flex items-center'>
@@ -8,10 +20,7 @@ const Announcement = () => {
           공지
         </div>
         <div className='text-sm truncate whitespace-nowrap pr-5'>
-          Lorem ipsum dolor sit amet consectetur. Turpis etiam cursus est
-          consectetur. A diam id in cursus vitae iaculis ut. Felis imperdiet
-          sagittis sed mi semper risus dignissim pharetra sed. Egestas
-          scelerisque in urna at fringilla.
+          {!loading && data.notice.content}
         </div>
       </div>
     </div>

@@ -65,6 +65,11 @@ export interface NexusGenObjects {
     postId?: number | null; // Int
   }
   Mutation: {};
+  Notice: { // root type
+    content?: string | null; // String
+    createdAt?: string | null; // String
+    id?: number | null; // Int
+  }
   Post: { // root type
     category?: string | null; // String
     content?: string | null; // String
@@ -118,6 +123,11 @@ export interface NexusGenFieldTypes {
     incrementViews: NexusGenRootTypes['Post'] | null; // Post
     updatePost: NexusGenRootTypes['Post'] | null; // Post
   }
+  Notice: { // field return type
+    content: string | null; // String
+    createdAt: string | null; // String
+    id: number | null; // Int
+  }
   Post: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
     category: string | null; // String
@@ -132,9 +142,11 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     comment: NexusGenRootTypes['Comment'] | null; // Comment
+    filterCategory: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     filterPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     filterUser: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     findAll: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    notice: NexusGenRootTypes['Notice'] | null; // Notice
     post: NexusGenRootTypes['Post'] | null; // Post
     posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
@@ -173,6 +185,11 @@ export interface NexusGenFieldTypeNames {
     incrementViews: 'Post'
     updatePost: 'Post'
   }
+  Notice: { // field return type name
+    content: 'String'
+    createdAt: 'String'
+    id: 'Int'
+  }
   Post: { // field return type name
     author: 'User'
     category: 'String'
@@ -187,9 +204,11 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     comment: 'Comment'
+    filterCategory: 'Post'
     filterPosts: 'Post'
     filterUser: 'User'
     findAll: 'Post'
+    notice: 'Notice'
     post: 'Post'
     posts: 'Post'
     users: 'User'
@@ -241,6 +260,9 @@ export interface NexusGenArgTypes {
   Query: {
     comment: { // args
       commentId: number; // Int!
+    }
+    filterCategory: { // args
+      searchCategory: string; // String!
     }
     filterPosts: { // args
       searchString: string; // String!
