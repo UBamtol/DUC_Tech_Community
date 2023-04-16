@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <>
-      <Link className='w-full h-[50px] flex items-center shadow-sm' href='/'>
+      <Link className='w-[300px] h-[50px] flex items-center shadow-sm' href='/'>
         <Image
           className='ml-[20px] mr-[5px]'
           src='/asset/images/daelimLogo.svg'
@@ -17,9 +17,6 @@ const Header = () => {
           height={30}
         />
         <p className='text-xl'>Daelim Tech Community</p>
-        {/* <div className='border border-black' onClick={() => signIn('github')}>
-          로그인
-        </div> */}
       </Link>
     </>
   );

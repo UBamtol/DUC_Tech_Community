@@ -16,7 +16,7 @@ const SearchBar = () => {
     <div className='flex w-[280px] h-[35px]'>
       <input
         type='search'
-        className='w-full min-w-[190px] h-full bg-white rounded-l-md px-3 text-black outline-none'
+        className='w-full min-w-[190px] h-full bg-white rounded-l-md px-3 text-black text-sm outline-none'
         placeholder='검색어를 입력해주세요.'
         onChange={(e) => setSearchWord(e.target.value)}
         onKeyDown={(e) => {

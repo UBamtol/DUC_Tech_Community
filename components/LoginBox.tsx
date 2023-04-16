@@ -8,19 +8,13 @@ const LoginBox = () => {
     return (
       <>
         <div className='flex flex-col w-full p-5'>
-          <div className='flex pb-2'>
+          <div className='flex pb-2 w-full justify-between'>
             <Image
               src={session.user?.image!}
               alt='유저이미지'
               width={40}
               height={40}
             />
-          </div>
-          <div className='flex justify-between items-center'>
-            <div>
-              <div className='text-sm font-semibold'>{session.user?.name}</div>
-              <div className='text-xs text-[#808080]'>18학번</div>
-            </div>
             <div
               className='flex justify-center items-center w-[60px] h-[30px] bg-[#A7A9AC] text-white text-xs hover:cursor-pointer hover:bg-[#c1c3c7] active:bg-[#888888] rounded-full'
               onClick={() => {
@@ -30,9 +24,15 @@ const LoginBox = () => {
               로그아웃
             </div>
           </div>
+          <div className='flex justify-between items-center'>
+            <div>
+              <div className='text-sm font-semibold'>{session.user?.name}</div>
+              <div className='text-xs text-[#808080]'>18학번</div>
+            </div>
+          </div>
           <div className='text-xs text-[#808080]'>{session.user?.email}</div>
         </div>
-        <div className='flex text-xs w-full h-[33px] items-center border-t border-[#808080] divide-x divide-[#808080]'>
+        <div className='flex text-xs w-full h-[33px] items-center border-y border-[#808080] divide-x divide-[#808080]'>
           <div className='flex justify-center items-center w-1/3 h-full hover:cursor-pointer hover:font-semibold'>
             게시물
           </div>
