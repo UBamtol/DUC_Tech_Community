@@ -1,15 +1,14 @@
 import { useQuery } from '@apollo/client';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { gql } from 'apollo-server-micro';
 import LeftCategoryBox from 'components/LeftCategoryBox';
-import { clear } from 'console';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
-const FilterPostsQuery = gql`
-  query FilterPosts($searchString: String!, $pageNumber: Int!) {
-    filterPosts(searchString: $searchString, pageNumber: $pageNumber) {
+const PostsQuery = gql`
+  query Posts($pageNumber: Int!, $sorting: String) {
+    posts(pageNumber: $pageNumber, sorting: $sorting) {
       pageInfo {
         hasNextPage
         totalPageCount
@@ -31,42 +30,13 @@ const FilterPostsQuery = gql`
   }
 `;
 
-const searchString = () => {
-  const highlightedText = (text: string, query: string) => {
-    if (text.includes(query)) {
-      const parts = text.split(new RegExp(`(${query})`, 'gi'));
-
-      return (
-        <>
-          {parts.map((part, i) =>
-            part.toLowerCase() === query.toLowerCase() ? (
-              <span className='font-bold text-[#4DB5D9]' key={i}>
-                {part}
-              </span>
-            ) : (
-              part
-            )
-          )}
-        </>
-      );
-    }
-
-    return text;
-  };
+const allPosts = () => {
   const router = useRouter();
-  const searchWord = router.query.searchString;
-  const [searchString, setSearchString] = useState('');
-  const [pageNumber, setPageNumber] = useState(0);
-  const { loading, error, data } = useQuery(FilterPostsQuery, {
-    variables: { searchString, pageNumber },
-    skip: searchWord === undefined && searchString === '',
-  });
 
-  useEffect(() => {
-    if (router.isReady) {
-      setSearchString(String(searchWord));
-    } else return;
-  }, [router.isReady, searchWord, searchString]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const { loading, error, data } = useQuery(PostsQuery, {
+    variables: { pageNumber, sorting: router.query.sorting },
+  });
 
   return (
     <>
@@ -75,8 +45,7 @@ const searchString = () => {
           <LeftCategoryBox />
           <div className='w-full'>
             <div className='w-full h-[56px] border-y-2 border-black flex items-center p-5 font-semibold text-lg'>
-              <div className='text-[#4DB5D9] font-bold'>"{searchString}"</div>에
-              대한 검색 결과
+              <div className='font-bold capitalize'>전체 글 보기</div>
             </div>
             <div className='border-b border-[#808080] flex px-3 py-[10px] justify-between'>
               <div className='flex justify-center items-center px-2 w-[60px]'>
@@ -99,8 +68,8 @@ const searchString = () => {
               </div>
             </div>
 
-            {data.filterPosts.edges.length !== 0 ? (
-              data.filterPosts.edges.map((v: any, i: number) => {
+            {data.posts.edges.length !== 0 ? (
+              data.posts.edges.map((v: any, i: number) => {
                 return (
                   <div
                     className='flex px-3 py-[10px] justify-between border-b border-[#808080] hover:cursor-pointer'
@@ -114,8 +83,7 @@ const searchString = () => {
                       <div className='text-[#959595] capitalize'>
                         [{v.node.subCategory}]&nbsp;
                       </div>
-
-                      <p>{highlightedText(v.node.title, searchString)}</p>
+                      <p>{v.node.title}</p>
                     </div>
                     <div className='flex justify-center items-center px-2 w-[100px] text-sm text-[#666666]'>
                       {v.node.author.name}
@@ -141,48 +109,38 @@ const searchString = () => {
                   height={100}
                   priority
                 />
-                <div className='flex'>
-                  <div className='font-bold text-[#4DB5D9] text-lg'>
-                    "{searchString}"
-                  </div>
-                  에 대한 검색 결과가 없습니다.
-                </div>
+                <div className='flex items-center'>아직 게시글이 없습니다.</div>
               </div>
             )}
-            {data.filterPosts.edges.length !== 0 ? (
-              <div className='flex w-full justify-center items-center gap-x-2 pt-3'>
-                {pageNumber > 0 && (
-                  <ChevronLeftIcon
-                    width={20}
-                    height={20}
-                    onClick={() => {
-                      if (pageNumber > 0) {
-                        setPageNumber(pageNumber - 1);
-                      }
-                    }}
-                    className='rounded-md bg-gray-200 hover:cursor-pointer'
-                  />
-                )}
+            <div className='flex w-full justify-center items-center gap-x-2 pt-3'>
+              {pageNumber > 0 && (
+                <ChevronLeftIcon
+                  width={20}
+                  height={20}
+                  onClick={() => {
+                    if (pageNumber > 0) {
+                      setPageNumber(pageNumber - 1);
+                    }
+                  }}
+                  className='rounded-md bg-gray-200 hover:cursor-pointer'
+                />
+              )}
 
-                {/* {data.posts.pageInfo.totalPageCount!} */}
-                {pageNumber + 1}
-                {data.filterPosts.pageInfo.hasNextPage === true && (
-                  <ChevronRightIcon
-                    width={20}
-                    height={20}
-                    onClick={() => {
-                      if (
-                        pageNumber + 1 <
-                        data.filterPosts.pageInfo.totalPageCount
-                      ) {
-                        setPageNumber(pageNumber + 1);
-                      }
-                    }}
-                    className='rounded-md bg-gray-200 hover:cursor-pointer'
-                  />
-                )}
-              </div>
-            ) : null}
+              {/* {data.posts.pageInfo.totalPageCount!} */}
+              {pageNumber + 1}
+              {data.posts.pageInfo.hasNextPage === true && (
+                <ChevronRightIcon
+                  width={20}
+                  height={20}
+                  onClick={() => {
+                    if (pageNumber + 1 < data.posts.pageInfo.totalPageCount) {
+                      setPageNumber(pageNumber + 1);
+                    }
+                  }}
+                  className='rounded-md bg-gray-200 hover:cursor-pointer'
+                />
+              )}
+            </div>
           </div>
         </div>
       )}
@@ -190,4 +148,4 @@ const searchString = () => {
   );
 };
 
-export default searchString;
+export default allPosts;

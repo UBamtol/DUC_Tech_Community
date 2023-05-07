@@ -2,7 +2,7 @@ import LeftCategoryBox from 'components/LeftCategoryBox';
 import React, { useState, Fragment, useEffect } from 'react';
 import listData from '../public/db/listData.json';
 import { MyListBox } from 'components/common/MyListBox';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
@@ -34,6 +34,18 @@ const CreatePostMutation = gql`
   }
 `;
 
+const FilterPostingCategoryQuery = gql`
+  query FilterPostingCategory($queryPath: String!) {
+    filterPostingCategory(queryPath: $queryPath) {
+      id
+      content
+      author {
+        name
+      }
+    }
+  }
+`;
+
 const createPostPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -42,11 +54,19 @@ const createPostPage = () => {
   const [subCategory, setSubCategory] = useState(categoryList[0]);
   const [postTitle, setPostTitle] = useState('');
   const [postContent, setPostContent] = useState('');
+  const { data, refetch } = useQuery(FilterPostingCategoryQuery, {
+    variables: { queryPath: subCategory },
+    skip: subCategory === undefined,
+  });
+  const [createPost, { loading, error }] = useMutation(CreatePostMutation, {
+    onCompleted: async () => {
+      const response = await refetch();
+      router.push(`/posts/${response.data.filterPostingCategory[0].id}`);
+    },
+  });
 
-  const [createPost, { loading, error, data }] =
-    useMutation(CreatePostMutation);
-
-  const onSubmit = async () => {
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
     await createPost({
       variables: {
         category: mainCategory,
@@ -55,7 +75,7 @@ const createPostPage = () => {
         content: postContent,
         authorEmail: session?.user?.email,
       },
-    }).then(() => router.push('/'));
+    });
   };
 
   return (
@@ -83,7 +103,7 @@ const createPostPage = () => {
                 />
                 <label
                   htmlFor='frontEnd'
-                  className='peer-checked/frontEnd:text-sky-500'
+                  className='peer-checked/frontEnd:text-sky-500 shrink-0'
                 >
                   front-end
                 </label>
@@ -102,7 +122,7 @@ const createPostPage = () => {
                 />
                 <label
                   htmlFor='backEnd'
-                  className='peer-checked/backEnd:text-sky-500'
+                  className='peer-checked/backEnd:text-sky-500 shrink-0'
                 >
                   back-end
                 </label>
@@ -121,7 +141,7 @@ const createPostPage = () => {
                 />
                 <label
                   htmlFor='freeBoard'
-                  className='peer-checked/freeBoard:text-sky-500'
+                  className='peer-checked/freeBoard:text-sky-500 shrink-0'
                 >
                   자유게시판
                 </label>
@@ -132,13 +152,6 @@ const createPostPage = () => {
               subCategory={subCategory}
               setSubCategory={setSubCategory}
             />
-
-            {/* <div className='hidden peer-checked/frontEnd:block'>
-            Drafts are only visible to administrators.
-          </div>
-          <div className='hidden peer-checked/backEnd:block'>
-            Your post will be publicly visible on your site.
-          </div> */}
           </fieldset>
 
           <div className='border-b-2 border-[#808080] p-5'>
@@ -168,8 +181,14 @@ const createPostPage = () => {
           </div>
           <div>
             <button
-              className='bg-[#4DB5D9] text-white p-2 rounded-lg text-base'
+              className={`bg-[#4DB5D9] text-white p-2 rounded-lg text-base ${
+                (!!postTitle?.trim() && !!postContent?.trim()) === false &&
+                'border border-[#cfcfcf] bg-[#f4f4f4] text-[#cfcfcf]'
+              }`}
               type='submit'
+              disabled={
+                (!!postTitle?.trim() && !!postContent?.trim()) === false
+              }
             >
               글 등록
             </button>

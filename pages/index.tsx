@@ -13,17 +13,33 @@ const Home: NextPage = () => {
         <div className='w-full h-full flex flex-col space-y-5 overflow-hidden'>
           <div className='flex space-x-5'>
             <div className='border-t-2 border-black w-1/2 overflow-auto'>
-              <PostingCategoryBox />
+              <PostingCategoryBox
+                category='최신 게시글'
+                queryPath='latest'
+                isFreeBoard={false}
+              />
             </div>
             <div className='border-t-2 border-black w-1/2 overflow-auto'>
-              <PostingCategoryBox />
+              <PostingCategoryBox
+                category='인기 게시글'
+                queryPath='popular'
+                isFreeBoard={false}
+              />
             </div>
           </div>
           <div className='border-t-2 border-black w-full'>
-            <PostingCategoryBox />
+            <PostingCategoryBox
+              category='자유게시판'
+              queryPath='자유게시판'
+              isFreeBoard={true}
+            />
           </div>
           <div className='border-t-2 border-black w-full'>
-            <PostingCategoryBox />
+            <PostingCategoryBox
+              category='동아리 홍보'
+              queryPath='동아리 홍보'
+              isFreeBoard={true}
+            />
           </div>
         </div>
       </div>

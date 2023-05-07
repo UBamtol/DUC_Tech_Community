@@ -142,7 +142,7 @@ const postId = () => {
                     <div className='font-semibold text-sm'>
                       {data.post.author.name}
                     </div>
-                    <div className='text-sm text-[#808080]'>18학번</div>
+                    {/* <div className='text-sm text-[#808080]'>18학번</div> */}
                   </div>
                   <div className='flex space-x-1'>
                     <div className='text-sm text-[#808080]'>
