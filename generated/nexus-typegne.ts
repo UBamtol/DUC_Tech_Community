@@ -24,6 +24,15 @@ declare global {
      *
      * @see https://nexusjs.org/docs/plugins/connection
      */
+    analyticsConnection<FieldName extends string>(
+      fieldName: FieldName,
+      config: connectionPluginCore.ConnectionFieldConfig<TypeName, FieldName> & { totalCount: connectionPluginCore.ConnectionFieldResolver<TypeName, FieldName, "totalCount">, avgDuration: connectionPluginCore.ConnectionFieldResolver<TypeName, FieldName, "avgDuration"> }
+    ): void
+    /**
+     * Adds a Relay-style connection to the type, with numerous options for configuration
+     *
+     * @see https://nexusjs.org/docs/plugins/connection
+     */
     connectionField<FieldName extends string>(
       fieldName: FieldName,
       config: connectionPluginCore.ConnectionFieldConfig<TypeName, FieldName>
@@ -59,6 +68,10 @@ export interface NexusGenObjects {
     id?: number | null; // Int
     postId?: number | null; // Int
   }
+  Edge: { // root type
+    likeCount?: number | null; // Int
+    node?: NexusGenRootTypes['Post'] | null; // Post
+  }
   Like: { // root type
     authorEmail?: string | null; // String
     id?: number | null; // Int
@@ -70,6 +83,10 @@ export interface NexusGenObjects {
     createdAt?: string | null; // String
     id?: number | null; // Int
   }
+  PageInfo: { // root type
+    hasNextPage?: boolean | null; // Boolean
+    totalPageCount?: number | null; // Int
+  }
   Post: { // root type
     category?: string | null; // String
     content?: string | null; // String
@@ -80,6 +97,10 @@ export interface NexusGenObjects {
     views?: number | null; // Int
   }
   Query: {};
+  Response: { // root type
+    edges?: Array<NexusGenRootTypes['Edge'] | null> | null; // [Edge]
+    pageInfo?: NexusGenRootTypes['PageInfo'] | null; // PageInfo
+  }
   User: { // root type
     email?: string | null; // String
     id?: string | null; // String
@@ -106,6 +127,10 @@ export interface NexusGenFieldTypes {
     post: NexusGenRootTypes['Post'] | null; // Post
     postId: number | null; // Int
   }
+  Edge: { // field return type
+    likeCount: number | null; // Int
+    node: NexusGenRootTypes['Post'] | null; // Post
+  }
   Like: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
     authorEmail: string | null; // String
@@ -128,6 +153,10 @@ export interface NexusGenFieldTypes {
     createdAt: string | null; // String
     id: number | null; // Int
   }
+  PageInfo: { // field return type
+    hasNextPage: boolean | null; // Boolean
+    totalPageCount: number | null; // Int
+  }
   Post: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
     category: string | null; // String
@@ -142,14 +171,19 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     comment: NexusGenRootTypes['Comment'] | null; // Comment
-    filterCategory: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    filterPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    filterCategory: NexusGenRootTypes['Response'] | null; // Response
+    filterPostingCategory: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    filterPosts: NexusGenRootTypes['Response'] | null; // Response
     filterUser: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     findAll: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
     notice: NexusGenRootTypes['Notice'] | null; // Notice
     post: NexusGenRootTypes['Post'] | null; // Post
-    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    posts: NexusGenRootTypes['Response'] | null; // Response
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
+  Response: { // field return type
+    edges: Array<NexusGenRootTypes['Edge'] | null> | null; // [Edge]
+    pageInfo: NexusGenRootTypes['PageInfo'] | null; // PageInfo
   }
   User: { // field return type
     email: string | null; // String
@@ -167,6 +201,10 @@ export interface NexusGenFieldTypeNames {
     id: 'Int'
     post: 'Post'
     postId: 'Int'
+  }
+  Edge: { // field return type name
+    likeCount: 'Int'
+    node: 'Post'
   }
   Like: { // field return type name
     author: 'User'
@@ -190,6 +228,10 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'String'
     id: 'Int'
   }
+  PageInfo: { // field return type name
+    hasNextPage: 'Boolean'
+    totalPageCount: 'Int'
+  }
   Post: { // field return type name
     author: 'User'
     category: 'String'
@@ -204,14 +246,19 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     comment: 'Comment'
-    filterCategory: 'Post'
-    filterPosts: 'Post'
+    filterCategory: 'Response'
+    filterPostingCategory: 'Post'
+    filterPosts: 'Response'
     filterUser: 'User'
     findAll: 'Post'
     notice: 'Notice'
     post: 'Post'
-    posts: 'Post'
+    posts: 'Response'
     users: 'User'
+  }
+  Response: { // field return type name
+    edges: 'Edge'
+    pageInfo: 'PageInfo'
   }
   User: { // field return type name
     email: 'String'
@@ -262,9 +309,15 @@ export interface NexusGenArgTypes {
       commentId: number; // Int!
     }
     filterCategory: { // args
+      mainCategory: string; // String!
+      pageNumber: number; // Int!
       searchCategory: string; // String!
     }
+    filterPostingCategory: { // args
+      queryPath: string; // String!
+    }
     filterPosts: { // args
+      pageNumber: number; // Int!
       searchString: string; // String!
     }
     filterUser: { // args
@@ -275,6 +328,10 @@ export interface NexusGenArgTypes {
     }
     post: { // args
       postId: number; // Int!
+    }
+    posts: { // args
+      pageNumber: number; // Int!
+      sorting?: string | null; // String
     }
   }
 }
@@ -342,6 +399,7 @@ declare global {
   interface NexusGenPluginInputTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
+    
     
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {

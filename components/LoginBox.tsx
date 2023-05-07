@@ -27,7 +27,7 @@ const LoginBox = () => {
           <div className='flex justify-between items-center'>
             <div>
               <div className='text-sm font-semibold'>{session.user?.name}</div>
-              <div className='text-xs text-[#808080]'>18학번</div>
+              {/* <div className='text-xs text-[#808080]'>18학번</div> */}
             </div>
           </div>
           <div className='text-xs text-[#808080]'>{session.user?.email}</div>
@@ -56,7 +56,7 @@ const LoginBox = () => {
         >
           <Image
             className='mr-2'
-            src='./asset/images/github_logo_white.svg'
+            src='/asset/images/github_logo_white.svg'
             alt='github_logo_white'
             width={20}
             height={20}

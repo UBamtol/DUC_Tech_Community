@@ -42,6 +42,7 @@ model Post {
   subCategory String
   views       Int       @default(0)
   likes       Like[]
+  likesCount  Int
   author      User      @relation(fields: [authorEmail], references: [email])
   authorEmail String
   comments    Comment[]

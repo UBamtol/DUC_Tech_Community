@@ -16,6 +16,11 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+type Edge {
+  likeCount: Int
+  node: Post
+}
+
 type Like {
   author: User
   authorEmail: String
@@ -41,6 +46,11 @@ type Notice {
   id: Int
 }
 
+type PageInfo {
+  hasNextPage: Boolean
+  totalPageCount: Int
+}
+
 type Post {
   author: User
   category: String
@@ -56,14 +66,20 @@ type Post {
 
 type Query {
   comment(commentId: Int!): Comment
-  filterCategory(searchCategory: String!): [Post]
-  filterPosts(searchString: String!): [Post]
+  filterCategory(mainCategory: String!, pageNumber: Int!, searchCategory: String!): Response
+  filterPostingCategory(queryPath: String!): [Post]
+  filterPosts(pageNumber: Int!, searchString: String!): Response
   filterUser(name: String!): [User]
   findAll(searchWord: String!): [Post]
   notice: Notice
   post(postId: Int!): Post
-  posts: [Post]
+  posts(pageNumber: Int!, sorting: String): Response
   users: [User]
+}
+
+type Response {
+  edges: [Edge]
+  pageInfo: PageInfo
 }
 
 type User {

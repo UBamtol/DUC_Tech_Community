@@ -21,7 +21,7 @@ const LeftCategoryBox = () => {
       )}
       <Link
         className={`w-full flex  justify-start items-center border-t-2 border-[#808080] px-5 py-3 text-xs hover:cursor-pointer hover:font-semibold hover:bg-[#808080]/5`}
-        href='/category/allPosts'
+        href='/allPosts'
       >
         <Bars3BottomLeftIcon className='w-3 h-3 border border-black text-black mr-1' />
         전체 글 보기
@@ -76,7 +76,7 @@ const LeftCategoryBox = () => {
           className='w-full border-b-1 border-[#808080] font-semibold px-5 py-3 hover:cursor-pointer hover:font-bold hover:bg-[#808080]/5'
           href='/free-board/allPosts'
         >
-          자유게시판
+          기타게시판
         </Link>
         <div className='w-full items-center border-t border-[#808080]'>
           {listData.freeBoard.map((v, i) => {
