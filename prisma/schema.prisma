@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,10 +10,10 @@ datasource db {
 model Comment {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
-  post        Post     @relation(fields: [postId], references: [id])
   postId      Int
   authorEmail String
   content     String
+  post        Post     @relation(fields: [postId], references: [id])
 }
 
 model Notice {
@@ -27,10 +24,10 @@ model Notice {
 
 model Like {
   id          Int    @id @default(autoincrement())
-  author      User   @relation(fields: [authorEmail], references: [email])
   authorEmail String
-  post        Post   @relation(fields: [postId], references: [id])
   postId      Int
+  author      User   @relation(fields: [authorEmail], references: [email])
+  post        Post   @relation(fields: [postId], references: [id])
 }
 
 model Post {
@@ -41,17 +38,11 @@ model Post {
   category    Category
   subCategory String
   views       Int       @default(0)
-  likes       Like[]
-  likesCount  Int
-  author      User      @relation(fields: [authorEmail], references: [email])
+  likesCount  Int       @default(0)
   authorEmail String
   comments    Comment[]
-}
-
-enum Category {
-  FRONTEND
-  BACKEND
-  FREEBOARD
+  likes       Like[]
+  author      User      @relation(fields: [authorEmail], references: [email])
 }
 
 model Account {
@@ -60,12 +51,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -87,9 +78,9 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  sessions      Session[]
-  posts         Post[]
   likes         Like[]
+  posts         Post[]
+  sessions      Session[]
 }
 
 model VerificationToken {
@@ -98,4 +89,10 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum Category {
+  FRONTEND
+  BACKEND
+  FREEBOARD
 }

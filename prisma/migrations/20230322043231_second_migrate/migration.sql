@@ -1,5 +1,0 @@
--- AlterEnum
-ALTER TYPE "Category" ADD VALUE 'FREEBOARD';
-
--- AlterTable
-ALTER TABLE "Post" ADD COLUMN     "views" INTEGER NOT NULL DEFAULT 0;

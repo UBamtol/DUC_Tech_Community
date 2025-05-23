@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Category" AS ENUM ('FRONTEND', 'BACKEND');
+CREATE TYPE "Category" AS ENUM ('FRONTEND', 'BACKEND', 'FREEBOARD');
 
 -- CreateTable
 CREATE TABLE "Comment" (
@@ -13,6 +13,24 @@ CREATE TABLE "Comment" (
 );
 
 -- CreateTable
+CREATE TABLE "Notice" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "content" TEXT NOT NULL,
+
+    CONSTRAINT "Notice_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Like" (
+    "id" SERIAL NOT NULL,
+    "authorEmail" TEXT NOT NULL,
+    "postId" INTEGER NOT NULL,
+
+    CONSTRAINT "Like_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Post" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -20,6 +38,8 @@ CREATE TABLE "Post" (
     "content" TEXT NOT NULL,
     "category" "Category" NOT NULL,
     "subCategory" TEXT NOT NULL,
+    "views" INTEGER NOT NULL DEFAULT 0,
+    "likesCount" INTEGER NOT NULL,
     "authorEmail" TEXT NOT NULL,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
@@ -88,6 +108,12 @@ CREATE UNIQUE INDEX "VerificationToken_identifier_token_key" ON "VerificationTok
 
 -- AddForeignKey
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Like" ADD CONSTRAINT "Like_authorEmail_fkey" FOREIGN KEY ("authorEmail") REFERENCES "User"("email") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Like" ADD CONSTRAINT "Like_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_authorEmail_fkey" FOREIGN KEY ("authorEmail") REFERENCES "User"("email") ON DELETE RESTRICT ON UPDATE CASCADE;
