@@ -171,10 +171,10 @@ const postId = () => {
                     />
                     좋아요 {data.post.likes.length}
                   </div>
-                  <div className='flex items-center text-sm'>
+                  {/* <div className='flex items-center text-sm'>
                     <ChatBubbleOvalLeftEllipsisIcon className='text-[#0095C8] w-4 h-4 mr-1' />
                     댓글 13
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <Comments />

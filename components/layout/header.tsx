@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <>
-      <Link className='w-[300px] h-[50px] flex items-center shadow-sm' href='/'>
+      <Link className='w-[300px] h-[50px] flex items-center' href='/'>
         <Image
           className='ml-[20px] mr-[5px]'
           src='/asset/images/daelimLogo.svg'

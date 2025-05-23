@@ -29,8 +29,8 @@ const Home: NextPage = () => {
           </div>
           <div className='border-t-2 border-black w-full'>
             <PostingCategoryBox
-              category='자유게시판'
-              queryPath='자유게시판'
+              category='자유 게시판'
+              queryPath='자유 게시판'
               isFreeBoard={true}
             />
           </div>

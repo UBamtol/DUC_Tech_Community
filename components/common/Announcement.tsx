@@ -24,13 +24,12 @@ const Announcement = () => {
             <div className='w-5 h-7 abosolute shrink-0 bg-gradient-to-r from-[#F3F3F3]' />
             <div className='w-5 h-7 abosolute  shrink-0 bg-gradient-to-l from-[#F3F3F3]' />
           </div>
-          <div className='flex flex-row text-sm absolute whitespace-nowrap animate-roller shrink'>
-            <div className='w-full px-2'>{!loading && data.notice.content}</div>
-          </div>
-          <div className='flex flex-row text-sm translate-x-12 whitespace-nowrap animate-roller'>
-            <div className='w-full px-2 translate-x-full'>
-              {!loading && data.notice.content}
-            </div>
+          <div className='flex flex-row text-sm absolute whitespace-nowrap shrink animate-rollingLeft'>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div className='w-full px-5'>
+                {!loading && data.notice.content}
+              </div>
+            ))}
           </div>
         </div>
       </div>
