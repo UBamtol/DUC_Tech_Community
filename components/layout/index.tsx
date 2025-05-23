@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 import Header from './header';
 import Navbar from './navbar';
+import Footer from './footer';
 
 type Props = {
   children: ReactNode;
@@ -14,7 +15,7 @@ const Layout = ({ children }: Props) => {
   const router = useRouter();
   return (
     <div className='flex justify-center bg-slate-100'>
-      <div className='w-full max-w-[1080px] h-full bg-white overflow-hidden'>
+      <div className='w-full max-w-[1080px] min-w-[1080px] h-full bg-white overflow-hidden'>
         <Header />
         <Navbar />
         {router.pathname === '/' && (
@@ -30,6 +31,7 @@ const Layout = ({ children }: Props) => {
           </>
         )}
         {children}
+        <Footer />
       </div>
     </div>
   );
