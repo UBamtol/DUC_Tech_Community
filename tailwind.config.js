@@ -9,7 +9,13 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    screens: {
+      xs: '480px',
+    },
     extend: {
+      // dropShadow: {
+      //   'b-md': '0 35px 35px rgba(0, 0, 0, 0.25)',
+      // },
       keyframes: {
         roller: {
           '0%': {
@@ -25,5 +31,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+    require('tailwind-scrollbar-hide'),
+  ],
 };
