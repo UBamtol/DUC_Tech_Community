@@ -33,7 +33,7 @@ const FilterPostsQuery = gql`
 
 const searchString = () => {
   const highlightedText = (text: string, query: string) => {
-    if (text.includes(query)) {
+    if (text.toLowerCase().includes(query.toLowerCase())) {
       const parts = text.split(new RegExp(`(${query})`, 'gi'));
 
       return (
